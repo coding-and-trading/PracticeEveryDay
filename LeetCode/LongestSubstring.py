@@ -8,34 +8,48 @@ class Solution:
         if s is '':
             raise ValueError("s shoun't be empty string.")
 
-        substrings = []
+        substrings = {}
 
         for index, word in enumerate(s):
-            find_it = False
-            print(word)
-            for end, element in enumerate(s[index+1:]):
-                print(s[index+1:])
-                print('element is %s' %(element))
-                print('word is %s' %(s[index:index+end]))
-                if element in s[index:index+end]:
-                    #print('element is %s' %(element))
-                    #print('word is %s' %(s[index:end+1]))
-                    print('Add one word')
-                    substrings.append(s[index:end+1])
-                    find_it = True
+            print(index, word)
+            next_index = index + 1
+            # handle the last one
+            if index == len(s)-1:
+                break
+            for end, element in enumerate(s[next_index:]):
+                print(s[index:next_index+end])
+                if element in s[index:next_index+end]:
+                    # handle the last one
+                    word = None
+                    if next_index+end+1 == len(s)-1:
+                        word = s[index:next_index+end+1]
+                    else:
+                        word = s[index:next_index+end]
+                    substrings[word] = substrings.get(word, 0) + 1
                     break
-            #if not find_it:
-            #    print('Add this word: %s' %(s[index:]))
-            # add whole string if no one substring
-            if len(substrings) == 0:
 
-                substrings.append(s)
+
+        if len(substrings) == 0:
+            substrings[s] = substrings.get(s, 0) + 1
         print(substrings)
-        return max([len(x) for x in substrings])
+        return max([len(k) for k, v in substrings.items()])
 
+    def lengthOfLongestSubstring2(self, s):
+        start = maxLength = 0
+        usedChar = {}
+
+        for i in range(len(s)):
+            if s[i] in usedChar and start <= usedChar[s[i]]:
+                start = usedChar[s[i]] + 1
+            else:
+                maxLength = max(maxLength, i - start + 1)
+
+            usedChar[s[i]] = i
+
+        return maxLength
 s1 = 'abcabcbb'
 s2 = 'bbbbb'
-s3 = 'pwwkew'
-s4 = 'b'
+s3 = 'pwke'
+s4 = 'aab'
 solution = Solution()
-print(solution.lengthOfLongestSubstring(s2))
+print(solution.lengthOfLongestSubstring2(s4))
