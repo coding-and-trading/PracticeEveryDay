@@ -7,8 +7,10 @@ class TestSolutionMethods(ut.TestCase):
         self.assertEqual(4, s.lengthOfLongestSubstring(test_str1))
         test_str2 = 'abc'
         self.assertEqual(3, s.lengthOfLongestSubstring(test_str2))
-        test_str2 = 'a'
-        self.assertEqual(1, s.lengthOfLongestSubstring(test_str2))
+        test_str3 = 'a'
+        self.assertEqual(1, s.lengthOfLongestSubstring(test_str3))
+        test_str4 = 'abcabcbb'
+        self.assertEqual(3, s.lengthOfLongestSubstring(test_str4))
 
 class Solution:
     def lengthOfLongestSubstring(self, s):
@@ -18,7 +20,7 @@ class Solution:
         find all substrings and return length of longest
         """
         if s is '':
-            raise ValueError("s shoun't be empty string.")
+           return 0
 
         all_substring = [self.getSubString(i, s) for i in range(len(s))]
 
@@ -35,7 +37,7 @@ class Solution:
         for i in range(len(substring)):
             if i is 0:
                 continue
-            if substring[0] == substring[i]:
+            if substring[i] in substring[0:i]:
                 return substring[0:i]
 
         return s[index:len(s)]      # return all string if have no substring
