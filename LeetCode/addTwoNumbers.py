@@ -1,10 +1,31 @@
 import unittest as ut
 
-class TestSolution(ut.TestCase):
-    def TestToNumber(self):
-        root = ListNode(2)
-        node1 = ListNode(4)
-        node2 = ListNode(3)
+def listNodeBuilder(numbers):
+    nodes = [ListNode(x) for x in numbers]
+
+    root = nodes[0]
+    copy_root = root
+    for x in range(1, len(nodes)):
+        root.next = nodes[x]
+        root = root.next
+
+    return copy_root
+
+class TestSolutionMethods(ut.TestCase):
+    def test_toNumber(self):
+        numbers = [ 2, 4, 3 ]
+        root = listNodeBuilder(numbers)
+        s = Solution()
+        self.assertEqual(342, s.toNumber(root))
+
+    def testAddTwoNumbers(self):
+        number1, number2 = listNodeBuilder([2, 4, 3]), listNodeBuilder([5, 6, 4])
+        result = listNodeBuilder([7, 0, 8])
+
+        s = Solution()
+
+        self.assertEqual(s.toNumber(result),
+                        s.toNumber(s.addTwoNumbers(number1, number2)))
 
 # Definition for singly-linked list.
 class ListNode:
@@ -19,6 +40,16 @@ class Solution:
         :type l2: ListNode
         :rtype: ListNode
         """
+        total = str(self.toNumber(l1) + self.toNumber(l2))
+
+        node_element = [ListNode(x) for x in reversed(total)]
+        root = node_element[0]
+        copy_root = root
+        for x in range(1, len(node_element)):
+            root.next = node_element[x]
+            root = root.next
+
+        return copy_root
 
     def toNumber(self, x):
         number = 0
@@ -27,8 +58,11 @@ class Solution:
             numberes.append(x.val)
             x = x.next
         numberes.append(x.val)  # add last one
+        numberes = reversed(numberes)
+        for x in numberes:
+            number = int(number) * 10 + int(x)
 
-#        numberes = numberes.reverse()
-        for x in  numberes.reverse():
+        return number
 
 if __name__ == '__main__':
+    ut.main()
