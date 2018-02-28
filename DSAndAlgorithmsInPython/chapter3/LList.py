@@ -38,4 +38,9 @@ class LList:
             p = p.next
         print('')
 
+	def for_each(self, proc):
+		p = self._head
+		while p is not None:
+			proc(p.elem)
+			p = p.next
 if __name__ == '__main__':
