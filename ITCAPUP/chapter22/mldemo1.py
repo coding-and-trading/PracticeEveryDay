@@ -1,3 +1,4 @@
+
 def minkowskiDist(v1, v2, p):
     if len(v1) is not len(v2):
         raise ValueError("Two vector must have same elements.")
