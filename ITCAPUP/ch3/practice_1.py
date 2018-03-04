@@ -20,5 +20,9 @@ def calcRoot(number, height):
             ans = -ans
         return ans
 
+def sumOfString(s):
+    return sum([float(i) for i in s.split(',')])
+
 if __name__ == '__main__':
-    calcRoot(3)
+    s = '1.23, 2.4, 3.123'
+    print(sumOfString(s))
