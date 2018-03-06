@@ -38,6 +38,15 @@ class LList:
             p = p.next
         print('')
 
+    def reverse(self):
+        p = None
+        while self._head is not None:
+            q = self._head
+            self._head = q.next
+            q._next = p
+            p = q
+        self._head = p  #重置表头连接
+
 	def for_each(self, proc):
 		p = self._head
 		while p is not None:
