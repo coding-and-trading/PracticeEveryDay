@@ -47,6 +47,22 @@ class LList:
             p = q
         self._head = p  #重置表头连接
 
+    def insertAt(self, index, elem):
+        count = 0
+        if self._head is None:
+            self._head = LNode(elem)
+            return
+        p = self._head
+        isInsert = False
+        while p.next is not None:
+            if count is index:
+                p.next = LNode(elem)
+                isInsert = True
+            p = p.next
+        if isInsert is not True:
+            p.next = LNode(elem)
+
+
 	def for_each(self, proc):
 		p = self._head
 		while p is not None:
