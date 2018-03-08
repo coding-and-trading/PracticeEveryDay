@@ -59,8 +59,18 @@ class LList:
                 p.next = LNode(elem)
                 isInsert = True
             p = p.next
+            count += 1
         if isInsert is not True:
             p.next = LNode(elem)
+
+    def deleteAt(self, index):
+       count = 0
+       p = self._head
+       while p.next is not None:
+           if count is index:
+               p = p.next.next
+            p = p.next
+           count += 1
 
 
 	def for_each(self, proc):
